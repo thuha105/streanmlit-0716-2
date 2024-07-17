@@ -18,9 +18,9 @@ def load_data(file_path):
         return pd.DataFrame()  # Return an empty DataFrame on any other error
 
 # Load data
-file_2022 = data_dir / '収入・支出詳細_2022.csv'
-file_2023 = data_dir / '収入・支出詳細_2023.csv'
-file_2024 = data_dir / '収入・支出詳細_2024.csv'
+file_2022 = data_dir / '2022.csv'
+file_2023 = data_dir / '2023.csv'
+file_2024 = data_dir / '2024.csv'
 
 df_2022 = load_data(file_2022)
 df_2023 = load_data(file_2023)
@@ -78,4 +78,12 @@ except Exception as e:
 
 # Plot monthly income and expenses
 try:
-    filtered_data['Month'] = filtered_d
+    filtered_data['Month'] = filtered_data['日付'].dt.month
+    monthly_data = filtered_data.groupby(['Month', '大項目'])['金額（円）'].sum().unstack().fillna(0)
+    st.write("Monthly Income and Expenses")
+    fig, ax = plt.subplots()
+    monthly_data.plot(kind='line', ax=ax)
+    ax.set_ylabel('Amount (円)')
+    st.pyplot(fig)
+except Exception as e:
+    st.error(f"Error plotting monthly income and expenses: {e}")
