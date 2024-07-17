@@ -3,9 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Load data
-file_2022 = '/data/収入・支出詳細_2022.csv'
-file_2023 = '/data/収入・支出詳細_2023.csv'
-file_2024 = '/data/収入・支出詳細_2024.csv'
+file_2022 = 'data/収入・支出詳細_2022.csv'
+file_2023 = 'data/収入・支出詳細_2023.csv'
+file_2024 = 'data/収入・支出詳細_2024.csv'
 
 df_2022 = pd.read_csv(file_2022)
 df_2023 = pd.read_csv(file_2023)
