@@ -1,11 +1,15 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
+
+# Define the path to the data directory
+data_dir = os.path.join(os.path.dirname(__file__), 'data')
 
 # Load data
-file_2022 = 'data/収入・支出詳細_2022.csv'
-file_2023 = 'data/収入・支出詳細_2023.csv'
-file_2024 = 'data/収入・支出詳細_2024.csv'
+file_2022 = os.path.join(data_dir, '収入・支出詳細_2022.csv')
+file_2023 = os.path.join(data_dir, '収入・支出詳細_2023.csv')
+file_2024 = os.path.join(data_dir, '収入・支出詳細_2024.csv')
 
 df_2022 = pd.read_csv(file_2022)
 df_2023 = pd.read_csv(file_2023)
