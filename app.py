@@ -6,14 +6,27 @@ from pathlib import Path
 # Define the path to the data directory using Path
 data_dir = Path(__file__).parent / 'data'
 
+# Log the directory path for debugging
+st.write(f"Data directory path: {data_dir}")
+
 # Load data
 file_2022 = data_dir / '収入・支出詳細_2022.csv'
 file_2023 = data_dir / '収入・支出詳細_2023.csv'
 file_2024 = data_dir / '収入・支出詳細_2024.csv'
 
-df_2022 = pd.read_csv(file_2022)
-df_2023 = pd.read_csv(file_2023)
-df_2024 = pd.read_csv(file_2024)
+# Log the file paths for debugging
+st.write(f"File path for 2022 data: {file_2022}")
+st.write(f"File path for 2023 data: {file_2023}")
+st.write(f"File path for 2024 data: {file_2024}")
+
+# Load dataframes
+try:
+    df_2022 = pd.read_csv(file_2022)
+    df_2023 = pd.read_csv(file_2023)
+    df_2024 = pd.read_csv(file_2024)
+except FileNotFoundError as e:
+    st.error(f"File not found: {e}")
+    st.stop()
 
 # Combine dataframes into a single one with a year column
 df_2022['Year'] = 2022
