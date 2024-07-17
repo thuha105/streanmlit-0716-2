@@ -25,6 +25,14 @@ data = pd.concat([df_2022, df_2023, df_2024])
 # Convert the date column to datetime format
 data['日付'] = pd.to_datetime(data['日付'], format='%Y/%m/%d')
 
+# Convert non-numeric columns to strings to avoid potential type issues
+data['内容'] = data['内容'].astype(str)
+data['保有金融機関'] = data['保有金融機関'].astype(str)
+data['大項目'] = data['大項目'].astype(str)
+data['中項目'] = data['中項目'].astype(str)
+data['メモ'] = data['メモ'].astype(str)
+data['ID'] = data['ID'].astype(str)
+
 # Set page title
 st.title("Finance Data Visualization")
 
