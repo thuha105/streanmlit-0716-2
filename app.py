@@ -1,15 +1,15 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
+from pathlib import Path
 
-# Define the path to the data directory
-data_dir = os.path.join(os.path.dirname(__file__), 'data')
+# Define the path to the data directory using Path
+data_dir = Path(__file__).parent / 'data'
 
 # Load data
-file_2022 = os.path.join(data_dir, '収入・支出詳細_2022.csv')
-file_2023 = os.path.join(data_dir, '収入・支出詳細_2023.csv')
-file_2024 = os.path.join(data_dir, '収入・支出詳細_2024.csv')
+file_2022 = data_dir / '収入・支出詳細_2022.csv'
+file_2023 = data_dir / '収入・支出詳細_2023.csv'
+file_2024 = data_dir / '収入・支出詳細_2024.csv'
 
 df_2022 = pd.read_csv(file_2022)
 df_2023 = pd.read_csv(file_2023)
@@ -48,9 +48,4 @@ st.pyplot(fig)
 
 # Plot monthly income and expenses
 filtered_data['Month'] = filtered_data['日付'].dt.month
-monthly_data = filtered_data.groupby(['Month', '大項目'])['金額（円）'].sum().unstack().fillna(0)
-st.write("Monthly Income and Expenses")
-fig, ax = plt.subplots()
-monthly_data.plot(kind='line', ax=ax)
-ax.set_ylabel('Amount (円)')
-st.pyplot(fig)
+monthly_data = 
