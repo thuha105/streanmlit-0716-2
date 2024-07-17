@@ -6,26 +6,25 @@ from pathlib import Path
 # Define the path to the data directory using Path
 data_dir = Path(__file__).parent / 'data'
 
-# Log the directory path for debugging
-st.write(f"Data directory path: {data_dir}")
+# Function to load CSV file with error handling
+def load_data(file_path):
+    try:
+        return pd.read_csv(file_path)
+    except FileNotFoundError:
+        st.error(f"File not found: {file_path}")
+        return pd.DataFrame()  # Return an empty DataFrame if the file is not found
 
 # Load data
 file_2022 = data_dir / '収入・支出詳細_2022.csv'
 file_2023 = data_dir / '収入・支出詳細_2023.csv'
 file_2024 = data_dir / '収入・支出詳細_2024.csv'
 
-# Log the file paths for debugging
-st.write(f"File path for 2022 data: {file_2022}")
-st.write(f"File path for 2023 data: {file_2023}")
-st.write(f"File path for 2024 data: {file_2024}")
+df_2022 = load_data(file_2022)
+df_2023 = load_data(file_2023)
+df_2024 = load_data(file_2024)
 
-# Load dataframes
-try:
-    df_2022 = pd.read_csv(file_2022)
-    df_2023 = pd.read_csv(file_2023)
-    df_2024 = pd.read_csv(file_2024)
-except FileNotFoundError as e:
-    st.error(f"File not found: {e}")
+# Check if any dataframes are empty and exit if they are
+if df_2022.empty or df_2023.empty or df_2024.empty:
     st.stop()
 
 # Combine dataframes into a single one with a year column
@@ -39,12 +38,8 @@ data = pd.concat([df_2022, df_2023, df_2024])
 data['日付'] = pd.to_datetime(data['日付'], format='%Y/%m/%d')
 
 # Convert non-numeric columns to strings to avoid potential type issues
-data['内容'] = data['内容'].astype(str)
-data['保有金融機関'] = data['保有金融機関'].astype(str)
-data['大項目'] = data['大項目'].astype(str)
-data['中項目'] = data['中項目'].astype(str)
-data['メモ'] = data['メモ'].astype(str)
-data['ID'] = data['ID'].astype(str)
+for column in ['内容', '保有金融機関', '大項目', '中項目', 'メモ', 'ID']:
+    data[column] = data[column].astype(str)
 
 # Set page title
 st.title("Finance Data Visualization")
