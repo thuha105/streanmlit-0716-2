@@ -19,7 +19,7 @@ df_2024['Year'] = 2024
 data = pd.concat([df_2022, df_2023, df_2024])
 
 # Convert the date column to datetime format
-data['日付'] = pd.to_datetime(data['日付'])
+data['日付'] = pd.to_datetime(data['日付'], format='%Y/%m/%d')
 
 # Set page title
 st.title("Finance Data Visualization")
@@ -45,4 +45,8 @@ st.pyplot(fig)
 # Plot monthly income and expenses
 filtered_data['Month'] = filtered_data['日付'].dt.month
 monthly_data = filtered_data.groupby(['Month', '大項目'])['金額（円）'].sum().unstack().fillna(0)
-st.write("Monthl
+st.write("Monthly Income and Expenses")
+fig, ax = plt.subplots()
+monthly_data.plot(kind='line', ax=ax)
+ax.set_ylabel('Amount (円)')
+st.pyplot(fig)
