@@ -79,4 +79,11 @@ except Exception as e:
 # Plot monthly income and expenses
 try:
     filtered_data['Month'] = filtered_data['日付'].dt.month
-    monthly_data = filtered_d
+    monthly_data = filtered_data.groupby(['Month', '大項目'])['金額（円）'].sum().unstack().fillna(0)
+    st.write("Monthly Income and Expenses")
+    fig, ax = plt.subplots()
+    monthly_data.plot(kind='line', ax=ax)
+    ax.set_ylabel('Amount (円)')
+    st.pyplot(fig)
+except Exception as e:
+    st.error(f"Error plotting monthly income and expenses: {e}")
