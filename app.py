@@ -45,8 +45,4 @@ st.pyplot(fig)
 # Plot monthly income and expenses
 filtered_data['Month'] = filtered_data['日付'].dt.month
 monthly_data = filtered_data.groupby(['Month', '大項目'])['金額（円）'].sum().unstack().fillna(0)
-st.write("Monthly Income and Expenses")
-fig, ax = plt.subplots()
-monthly_data.plot(kind='line', ax=ax)
-ax.set_ylabel('Amount (円)')
-st.pyplot(fig)
+st.write("Monthl
