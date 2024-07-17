@@ -18,9 +18,9 @@ def load_data(file_path):
         return pd.DataFrame()  # Return an empty DataFrame on any other error
 
 # Load data
-file_2022 = data_dir / '収入・支出詳細_2022.csv'
-file_2023 = data_dir / '収入・支出詳細_2023.csv'
-file_2024 = data_dir / '収入・支出詳細_2024.csv'
+file_2022 = data_dir / '2022.csv'
+file_2023 = data_dir / '2023.csv'
+file_2024 = data_dir / '2024.csv'
 
 df_2022 = load_data(file_2022)
 df_2023 = load_data(file_2023)
